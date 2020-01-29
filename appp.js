@@ -1,5 +1,23 @@
 import products from './common/api.js';
 
+
+// render these three items on the screen as radio buttons with the same name and different values
+const radio1 = document.getElementById('product1');
+const radio2 = document.getElementById('product2');
+const radio3 = document.getElementById('product3');
+
+const radio1Span = document.getElementById('product1span');
+const radio2Span = document.getElementById('product2span');
+const radio3Span = document.getElementById('product3span');
+
+const img1 = document.getElementById('img1');
+const img2 = document.getElementById('img2');
+const img3 = document.getElementById('img3');
+
+const desc1 = document.getElementById('desc1');
+const desc2 = document.getElementById('desc2');
+const desc3 = document.getElementById('desc3');
+
 const productsData = products.slice();
 
 export function findById(items, id) {
@@ -11,11 +29,11 @@ export function findById(items, id) {
     }
 }
 
-//Keep track of how many times the user voted
-//keep track for votes for given project
-
+// keep track of how many times a user has voted, period (up to 25)
+// keep track of votes for a given product
 let totalVotes;
 let productVoteDetails;
+
 
 const initializeState = () => {
     totalVotes = 0;
@@ -24,45 +42,42 @@ const initializeState = () => {
 
 initializeState();
 
-//display 3 random non-duplicated prods
-//display 3 new non duplicates*refresh products between votes
-
+// display three random NON-duplicated products
+// display three NEW NON-duplicated poducts ***refresh products between votes***
 const displayThreeProducts = () => {
-    //get the random products from our array
+    // GET three random products from our data
     const product1 = getRandomProduct(productsData);
     let product2 = getRandomProduct(productsData);
     let product3 = getRandomProduct(productsData);
 
-    //makesure prods are not the same
+    // make sure the products are unique/not the same
     while (product1.id === product2.id
         || product2.id === product3.id
         || product1.id === product3.id
-
     ) {
         product2 = getRandomProduct(productsData);
         product3 = getRandomProduct(productsData);
     }
+    
+    img1.src = product1.image;
+    img2.src = product2.image;
+    img3.src = product3.image;
 
-// render these 3 items on screen as aradio buttons with the same name and diff values and with image
-
-    const radio1 = document.getElementById('product1');
-    const radio2 = document.getElementById('product2');
-    const radio3 = document.getElementById('product3');
-    const radio1Span = document.getElementById('product1span');
-    const radio2Span = document.getElementById('product2span');
-    const radio3Span = document.getElementById('product3span');
-
+    desc1.textContent = product1.desc;
+    desc2.textContent = product2.desc;
+    desc3.textContent = product3.desc;
 
     radio1.value = product1.id;
     radio2.value = product2.id;
     radio3.value = product3.id;
+
     radio1Span.textContent = product1.name;
     radio2Span.textContent = product2.name;
     radio3Span.textContent = product3.name;
+    
 };
 
 const form = document.querySelector('form');
-
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -89,7 +104,7 @@ form.addEventListener('submit', (e) => {
         });
     }
 
-    document.querySelector('input[name="product"]:checked').checked = false;
+    // document.querySelector('input[name="product"]:checked').checked = false;
 
     localStorage.setItem('__votes', JSON.stringify(productVoteDetails));
     // EVENT LISTENER
@@ -100,8 +115,9 @@ form.addEventListener('submit', (e) => {
 
     if (totalVotes >= 25) {
         window.location = 'results.html';
+        reset();
     }
-
+    
     displayThreeProducts();
 });
 
@@ -112,62 +128,14 @@ function reset() {
 function getRandomProduct(someProducts) {
     const randomIndex = Math.floor(Math.random() * someProducts.length);
     const randomProduct = productsData[randomIndex];
-    
+
     return randomProduct;
 }
 
 displayThreeProducts();
 
+// reset the whole app when finished
+    // set the votes array ([]) and total votes (0) to their initial states
 
-// populate random images in image src
-product1.src = randomProduct1.img;
-product2.src = randomProduct2.img;
-product3.src = randomProduct3.img;
-
-
-
-
-// // import data - 21 product objects in an array
-// import { productData } from './productData.js';
-// import { ProductArray } from './productArray.js';
-
-// const products = new ProductArray(productData);
-
-// // get elements from DOM
-// const productImage1 = document.getElementById('img1');
-// const productImage2 = document.getElementById('img2');
-// const productImage3 = document.getElementById('img3');
-// const productInputs = document.querySelectorAll('input');
-// const selectedInput = document.querySelector('input:checked');
-// const submitSelectionButton = document.getElementById('submit-selection-button');
-
-// // initialize state
-// let numberOfSelections = 0;
-
-// // change state
-// submitSelectionButton.addEventListener('click', () => {
-//     const selectedInput = document.querySelector('input:checked');
-//     numberOfSelections++;
-
-//     console.log(selectedInput.id);
-//     console.log(numberOfSelections);
-// });
-
-
-// // setup random image generation 
-// const randomProduct1 = products.getRandomProduct();
-// let randomProduct2 = products.getRandomProduct();
-// let randomProduct3 = products.getRandomProduct();
-
-// while (randomProduct1 === randomProduct2) {
-//     randomProduct2 = products.getRandomProduct();
-// }
-
-// while (randomProduct1 === randomProduct3) {
-//     randomProduct3 = products.getRandomProduct();
-// }
-
-// while (randomProduct2 === randomProduct3) {
-//     randomProduct3 = products.getRandomProduct();
-// }
-
+// STRETCH keep track of how many times a product appears so we can build a percentage (times clicked / times shown)
+// STRETCH: dont show the same product twice in a row
