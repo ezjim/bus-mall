@@ -15,36 +15,32 @@
     </header>
     <main>
         <section id="prod-selection">
-           
-            <label>
-                <p>1</p>
-                <input type='radio' name='Pick' value='choice1' checked>
-                <img class="radio-image"
-                    src='choice1img'  
-                    alt=''>
-                    <!-- insert random item 1 with picture -->
-            </label>
-            <label>
-                <p>2</p>
-                <input type='radio' name='Pick' value='choice2' checked>
-                <img class="radio-image"
-                    src='choice2img'
-                    alt=''>
-            </label>
-            <label>
-                <p>3</p>
-                <input type='radio' name='Pick' value='choice3' checked>
-                <img class="radio-image"
-                    src='choice3img'
-                    alt=''>
-            </label>
-            <section id="results-section" class="hidden">
+            <form>
+                <label>
+                    <span id="product1span"></span>
+                    <input id="product1" type="radio" name="product">
+                    <img src = "">
+                </label>
+                <label>
+                    <span id="product2span"></span>
+                    <input id="product2" type="radio" name="product" />
+                    <img src = "">
+                </label>
+                <label>
+                    <span id="product3span"></span>
+                    <input id="product3" type="radio" name="product" />
+                    <img src = "">
+                </label>
+                <button>Select</button>
+            </form> <section id="results-section" class="hidden">
                 <h2>Results</h2>
             <p>
                 
             </p>
         </section>
     </main>
+    <script src="app.js" type="module"></script>
+    <script src="../bus-mall/common/api.js" type="module"></script>
 
 
 

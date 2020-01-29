@@ -3,6 +3,7 @@ const products = [
         id: 'bag',
         image: './assets/bag.jpg',
         name: 'Bag'
+        
     },
 
     {
