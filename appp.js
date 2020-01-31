@@ -17,7 +17,7 @@ const img3 = document.getElementById('img3');
 const desc1 = document.getElementById('desc1');
 const desc2 = document.getElementById('desc2');
 const desc3 = document.getElementById('desc3');
-
+// not using this sloce   maybe for strech
 const productsData = products.slice();
 
 export function findById(items, id) {
@@ -106,7 +106,7 @@ form.addEventListener('submit', (e) => {
 
     // document.querySelector('input[name="product"]:checked').checked = false;
 
-    localStorage.setItem('__votes', JSON.stringify(productVoteDetails));
+    localStorage.setItem('votes', JSON.stringify(productVoteDetails));
     // EVENT LISTENER
     // when they select a product, update the total votes
     // update the productVoteDetails
